@@ -89,10 +89,21 @@ crispr-design-agent/
 
 7. **Serve API**
    ```bash
+   # Basic API
    uvicorn api.app:app --host 0.0.0.0 --port 8000
-   # POST /score   {"sequence": "MEEPQ...", "task": "clinvar"}
-   # POST /design  {...}
+
+   # Extended API with batch scoring, audit logs, and rate limiting
+   export CHECKPOINT_PATH=models/checkpoints/best.ckpt
+   uvicorn api.app_extended:app --host 0.0.0.0 --port 8000
+
+   # Endpoints:
+   # POST /score        - Single sequence scoring
+   # POST /batch-score  - Batch sequence scoring (extended API)
+   # GET  /stats        - API usage statistics (extended API)
+   # GET  /health       - Health check
    ```
+
+   See `docs/api.md` for complete API documentation.
 
 ## Docs for automation agents
 
@@ -146,7 +157,14 @@ See `docs/experiment_tracking.md` for detailed setup and usage.
 1. ✅ **Implemented:** Full structural featurization (PDB/AlphaFold contact graphs) via `features/structural.py` and `training/multimodal_module.py`.
 2. ✅ **Implemented:** Evaluation notebooks in `notebooks/` for benchmarking on held-out DMS/ClinVar sets.
 3. ✅ **Implemented:** Experiment tracking (Weights & Biases and MLflow) in `scripts/train_multitask.py`.
-4. Extend API with batch scoring and audit logs before exposing to paying users.
+4. ✅ **Implemented:** Extended API with batch scoring, audit logging, rate limiting, and request validation in `api/app_extended.py`.
+
+All core features are now complete! Future enhancements could include:
+- Authentication and authorization system
+- Database integration for persistent storage
+- Advanced caching strategies
+- Model ensemble predictions
+- Real-time monitoring dashboards
 
 ## Disclaimer
 
