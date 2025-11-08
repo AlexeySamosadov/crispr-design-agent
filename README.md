@@ -78,8 +78,14 @@ crispr-design-agent/
 
    # Multimodal model with structural features (requires structural features extracted in step 5)
    python scripts/train_multitask.py --config configs/model/multimodal.yaml --limit 10000
+
+   # With experiment tracking (W&B or MLflow)
+   python scripts/train_multitask.py \
+     --config configs/model/multitask.yaml \
+     --experiment-name "my-experiment" \
+     --tags baseline protT5
    ```
-   Edit the config to point at your processed files, batch sizes, and LoRA/T5 checkpoints.
+   Edit the config to point at your processed files, batch sizes, and tracking settings.
 
 7. **Serve API**
    ```bash
@@ -114,11 +120,32 @@ jupyter notebook notebooks/
 
 Results are saved to `results/` directory with predictions and metrics CSVs.
 
+## Experiment Tracking
+
+Track experiments with Weights & Biases or MLflow:
+
+```bash
+# Configure in YAML
+tracking:
+  use_wandb: true
+  wandb_project: crispr-design
+  use_mlflow: true
+  mlflow_tracking_uri: file:./mlruns
+
+# Run with tracking
+python scripts/train_multitask.py \
+  --config configs/model/multitask.yaml \
+  --experiment-name "experiment-1" \
+  --tags baseline
+```
+
+See `docs/experiment_tracking.md` for detailed setup and usage.
+
 ## Next steps
 
 1. ✅ **Implemented:** Full structural featurization (PDB/AlphaFold contact graphs) via `features/structural.py` and `training/multimodal_module.py`.
 2. ✅ **Implemented:** Evaluation notebooks in `notebooks/` for benchmarking on held-out DMS/ClinVar sets.
-3. Integrate experiment tracking (Weights & Biases or MLflow) inside `scripts/train_multitask.py`.
+3. ✅ **Implemented:** Experiment tracking (Weights & Biases and MLflow) in `scripts/train_multitask.py`.
 4. Extend API with batch scoring and audit logs before exposing to paying users.
 
 ## Disclaimer

@@ -30,6 +30,16 @@ training:
   eval_every: 1000
   gradient_clip_val: 1.0
   checkpoint_dir: models/checkpoints
+tracking:
+  use_wandb: false
+  wandb_project: crispr-design
+  wandb_entity: null
+  wandb_log_model: false
+  use_mlflow: false
+  mlflow_tracking_uri: file:./mlruns
+  mlflow_experiment: crispr-design
+  experiment_name: multitask-baseline
+
 data:
   num_workers: 8
   train_limit: null

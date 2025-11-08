@@ -38,6 +38,19 @@ training:
   eval_every: 500
   gradient_clip_val: 1.0
   checkpoint_dir: models/checkpoints
+  early_stopping: false
+  early_stop_patience: 5
+  save_top_k: 3
+
+tracking:
+  use_wandb: false
+  wandb_project: crispr-design
+  wandb_entity: null
+  wandb_log_model: false
+  use_mlflow: false
+  mlflow_tracking_uri: file:./mlruns
+  mlflow_experiment: crispr-design
+  experiment_name: multimodal-baseline
 
 data:
   num_workers: 4
