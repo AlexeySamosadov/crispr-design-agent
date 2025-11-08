@@ -1,0 +1,58 @@
+model:
+  encoder: Rostlab/prot_t5_xl_uniref50
+  max_length: 1024
+  freeze_encoder: false
+  use_structure: true
+  structure:
+    contact_embedding_dim: 64
+    hidden_dim: 128
+    num_layers: 3
+    dropout: 0.1
+    features_dir: features/structures
+  lora:
+    enabled: false
+    rank: 16
+    alpha: 32
+    dropout: 0.05
+
+heads:
+  dms:
+    type: regression
+    loss: mse
+  depmap:
+    type: regression
+    loss: mse
+  clinvar:
+    type: classification
+    loss: bce
+
+training:
+  optimizer: adamw
+  learning_rate: 3e-5
+  weight_decay: 0.01
+  warmup_steps: 1000
+  batch_size: 2
+  grad_accum: 8
+  precision: 16
+  max_steps: 30000
+  eval_every: 500
+  gradient_clip_val: 1.0
+  checkpoint_dir: models/checkpoints
+
+data:
+  num_workers: 4
+  train_limit: null
+  val_split: 0.1
+  tasks:
+    dms:
+      file: data/processed/dms.parquet
+      target: effect
+      type: regression
+    depmap:
+      file: data/processed/depmap.parquet
+      target: gene_effect
+      type: regression
+    clinvar:
+      file: data/processed/clinvar.parquet
+      target: is_pathogenic
+      type: classification

@@ -55,13 +55,33 @@ crispr-design-agent/
    python scripts/embed_features.py --input data/processed/dms.parquet --limit 1000
    ```
 
-5. **Train multitask model**
+5. **Extract structural features** (optional, for structure-aware models)
    ```bash
+   # For AlphaFold structures
+   python scripts/extract_structure_features.py \
+     --pdb-dir data/structures/alphafold \
+     --output-dir features/structures \
+     --is-alphafold \
+     --max-workers 4
+
+   # For experimental PDB structures
+   python scripts/extract_structure_features.py \
+     --pdb-dir data/structures/pdb \
+     --output-dir features/structures \
+     --distance-threshold 8.0
+   ```
+
+6. **Train multitask model**
+   ```bash
+   # Sequence-only model
    python scripts/train_multitask.py --config configs/model/multitask.yaml --limit 20000
+
+   # Multimodal model with structural features (requires structural features extracted in step 5)
+   python scripts/train_multitask.py --config configs/model/multimodal.yaml --limit 10000
    ```
    Edit the config to point at your processed files, batch sizes, and LoRA/T5 checkpoints.
 
-6. **Serve API**
+7. **Serve API**
    ```bash
    uvicorn api.app:app --host 0.0.0.0 --port 8000
    # POST /score   {"sequence": "MEEPQ...", "task": "clinvar"}
@@ -78,7 +98,7 @@ crispr-design-agent/
 
 ## Next steps
 
-1. Implement full structural featurization (PDB/AlphaFold contact graphs) and plug into `training/module.py`.
+1. ✅ **Implemented:** Full structural featurization (PDB/AlphaFold contact graphs) via `features/structural.py` and `training/multimodal_module.py`.
 2. Add evaluation notebooks in `notebooks/` for benchmarking on held-out DMS/ClinVar sets.
 3. Integrate experiment tracking (Weights & Biases or MLflow) inside `scripts/train_multitask.py`.
 4. Extend API with batch scoring and audit logs before exposing to paying users.
