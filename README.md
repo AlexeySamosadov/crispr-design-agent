@@ -96,10 +96,28 @@ crispr-design-agent/
 - `scripts/train_multitask.py` — accepts `--limit` to run smoke tests, otherwise trains to convergence using config hyperparameters.
 - `api/app.py` — FastAPI app importable by `uvicorn` or embedding inside larger orchestrators.
 
+## Evaluation
+
+Benchmark trained models using Jupyter notebooks:
+
+```bash
+# Install notebook dependencies
+pip install jupyter ipykernel scipy seaborn matplotlib
+
+# Start Jupyter
+jupyter notebook notebooks/
+
+# Run evaluation notebooks:
+# - evaluate_dms.ipynb: Deep Mutational Scanning regression metrics
+# - evaluate_clinvar.ipynb: ClinVar pathogenicity classification metrics
+```
+
+Results are saved to `results/` directory with predictions and metrics CSVs.
+
 ## Next steps
 
 1. ✅ **Implemented:** Full structural featurization (PDB/AlphaFold contact graphs) via `features/structural.py` and `training/multimodal_module.py`.
-2. Add evaluation notebooks in `notebooks/` for benchmarking on held-out DMS/ClinVar sets.
+2. ✅ **Implemented:** Evaluation notebooks in `notebooks/` for benchmarking on held-out DMS/ClinVar sets.
 3. Integrate experiment tracking (Weights & Biases or MLflow) inside `scripts/train_multitask.py`.
 4. Extend API with batch scoring and audit logs before exposing to paying users.
 
