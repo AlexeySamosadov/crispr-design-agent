@@ -29,6 +29,7 @@ def _dataset(name: str, **kwargs) -> DatasetSource:
 
 AVAILABLE_SOURCES: Dict[str, DatasetSource] = {
     "mavedb": _dataset(
+        name="mavedb",
         short_name="MaveDB",
         description="Deep mutational scanning score sets capturing the functional impact of amino-acid substitutions.",
         details_url="https://www.mavedb.org/",
@@ -39,6 +40,7 @@ AVAILABLE_SOURCES: Dict[str, DatasetSource] = {
         notes="Full downloads can be large; filter by assay or gene via the API parameters.",
     ),
     "uniprot_sprot": _dataset(
+        name="uniprot_sprot",
         short_name="UniProtKB/Swiss-Prot",
         description="Manually curated protein sequences with functional annotations and cross-references.",
         details_url="https://www.uniprot.org/help/downloads",
@@ -49,6 +51,7 @@ AVAILABLE_SOURCES: Dict[str, DatasetSource] = {
         citation="UniProt Consortium, Nucleic Acids Research 2023.",
     ),
     "alphafold": _dataset(
+        name="alphafold",
         short_name="AlphaFold DB",
         description="Predicted 3D structures for proteins with per-residue confidence scores.",
         details_url="https://alphafold.ebi.ac.uk/download",
@@ -59,6 +62,7 @@ AVAILABLE_SOURCES: Dict[str, DatasetSource] = {
         citation="Varadi et al. 2022. AlphaFold Protein Structure Database.",
     ),
     "depmap": _dataset(
+        name="depmap",
         short_name="DepMap CRISPR",
         description="Genome-wide CRISPR knockout screens with gene effect scores across cell lines.",
         details_url="https://depmap.org/portal/download/",
@@ -69,6 +73,7 @@ AVAILABLE_SOURCES: Dict[str, DatasetSource] = {
         citation="Tsherniak et al. 2017; DepMap Public 24Q1 release.",
     ),
     "clinvar": _dataset(
+        name="clinvar",
         short_name="ClinVar",
         description="Clinically characterized variants with pathogenicity assertions.",
         details_url="https://www.ncbi.nlm.nih.gov/clinvar/",
@@ -78,6 +83,7 @@ AVAILABLE_SOURCES: Dict[str, DatasetSource] = {
         citation="Landrum et al. ClinVar: public archive of relationships among sequence variation and human phenotype.",
     ),
     "depmap_expression": _dataset(
+        name="depmap_expression",
         short_name="DepMap Expression",
         description="RNA-seq TPM data matched to DepMap cell lines.",
         details_url="https://depmap.org/portal/download/all/",
