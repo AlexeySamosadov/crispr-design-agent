@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+.env
+.venv/
+.mypy_cache/
+.pytest_cache/
+.cache/
+logs/
+wandb/
+mlruns/
+data/raw/
+data/processed/
+features/
+models/checkpoints/
+notebooks/.ipynb_checkpoints/

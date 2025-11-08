@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "crispr-design-agent"
+version = "0.1.0"
+description = "Open-source toolkit for CRISPR editing and protein mutation design"
+readme = "README.md"
+authors = [{name = "Your Name", email = "you@example.com"}]
+license = {file = "LICENSE"}
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["black", "ruff", "mypy", "pytest", "ipykernel"]
+
+[tool.setuptools]
+packages = ["crispr_design_agent"]
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+addopts = "-ra"

@@ -1,0 +1,11 @@
+# Default dataset configuration
+output_dir: data/raw
+limit: 25  # limit for metadata-heavy sources (set null for full)
+fetch_payload: false
+sources:
+  - mavedb
+  - uniprot_sprot
+  - alphafold
+  - depmap
+  - depmap_expression
+  - clinvar
